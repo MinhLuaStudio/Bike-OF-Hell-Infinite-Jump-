@@ -1,0 +1,165 @@
+--[[
+    SCRIPT: Infinite Jump V9 - MinhLuaStudio Edition
+    GAME: Bike Of Hell
+    AUTHOR: MinhLuaStudio
+]]
+
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
+local Camera = Workspace.CurrentCamera
+
+-- === CẤU HÌNH SỨC MẠNH ===
+local UP_FORCE = 110      -- Lực đẩy lên
+local FORWARD_FORCE = 250 -- Lực đẩy tới (Mức chuẩn: 250)
+
+-- 1. DỌN DẸP GUI CŨ
+local guiName = "MinhLuaStudio_GUI"
+local existingGui = CoreGui:FindFirstChild(guiName)
+if existingGui then existingGui:Destroy() end
+
+-- 2. TẠO GIAO DIỆN
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = guiName
+pcall(function() ScreenGui.Parent = CoreGui end)
+if not ScreenGui.Parent then ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+-- Frame Chính
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30) -- Màu nền tối ngầu hơn
+MainFrame.Position = UDim2.new(0, 30, 0, 120)
+MainFrame.Size = UDim2.new(0, 250, 0, 150) -- Rộng hơn chút để chứa tên dài
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 14)
+UICorner.Parent = MainFrame
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Thickness = 3
+UIStroke.Parent = MainFrame
+
+-- Tiêu đề (BRAND NAME)
+local Title = Instance.new("TextLabel")
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 8)
+Title.Size = UDim2.new(1, 0, 0, 25)
+Title.Font = Enum.Font.GothamBlack -- Font dày siêu ngầu
+Title.Text = "MINHLUASTUDIO V9" -- Tên thương hiệu mới
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 18 -- Chữ to hơn cho uy tín
+
+-- Nút Bật/Tắt (Toggle)
+local ToggleBtn = Instance.new("TextButton")
+ToggleBtn.Parent = MainFrame
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleBtn.Position = UDim2.new(0, 15, 0, 45)
+ToggleBtn.Size = UDim2.new(0, 170, 0, 30)
+ToggleBtn.Font = Enum.Font.GothamBold
+ToggleBtn.Text = "Status: OFF"
+ToggleBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+ToggleBtn.TextSize = 14
+local ToggleCorner = Instance.new("UICorner")
+ToggleCorner.CornerRadius = UDim.new(0, 8)
+ToggleCorner.Parent = ToggleBtn
+
+-- Nút Đóng (X)
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Parent = MainFrame
+CloseBtn.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+CloseBtn.Position = UDim2.new(0, 195, 0, 45)
+CloseBtn.Size = UDim2.new(0, 40, 0, 30)
+CloseBtn.Font = Enum.Font.GothamBlack
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.TextSize = 16
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.Parent = CloseBtn
+
+-- === NÚT JUMP (TO & ĐẸP) ===
+local JumpBtn = Instance.new("TextButton")
+JumpBtn.Parent = MainFrame
+JumpBtn.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+JumpBtn.Position = UDim2.new(0, 15, 0, 90)
+JumpBtn.Size = UDim2.new(0, 220, 0, 45)
+JumpBtn.Font = Enum.Font.GothamBlack
+JumpBtn.Text = "BAY LÊN NÀO!" -- Slogan
+JumpBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+JumpBtn.TextSize = 18
+local JumpCorner = Instance.new("UICorner")
+JumpCorner.CornerRadius = UDim.new(0, 10)
+JumpCorner.Parent = JumpBtn
+
+-- 3. HIỆU ỨNG RGB (RAINBOW)
+local hue = 0
+RunService.RenderStepped:Connect(function(dt)
+    if not MainFrame.Parent then return end
+    hue = hue + (dt * 0.5)
+    if hue > 1 then hue = 0 end
+    local color = Color3.fromHSV(hue, 1, 1) -- Màu tươi sáng
+    
+    UIStroke.Color = color
+    Title.TextColor3 = color -- Tên MinhLuaStudio sẽ đổi màu liên tục
+    
+    if ToggleBtn.Text == "Status: ON" then
+        JumpBtn.BackgroundColor3 = color
+        JumpBtn.TextColor3 = Color3.new(0, 0, 0)
+    else
+        JumpBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
+        JumpBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
+    end
+end)
+
+-- 4. LOGIC XỬ LÝ
+local isEnabled = false
+
+ToggleBtn.MouseButton1Click:Connect(function()
+    isEnabled = not isEnabled
+    if isEnabled then
+        ToggleBtn.Text = "Status: ON"
+        ToggleBtn.TextColor3 = Color3.fromRGB(100, 255, 100)
+    else
+        ToggleBtn.Text = "Status: OFF"
+        ToggleBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+    end
+end)
+
+CloseBtn.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- HÀM NHẢY
+local function DoJump()
+    if not isEnabled then return end
+    
+    local char = LocalPlayer.Character
+    if char then
+        local root = char:FindFirstChild("HumanoidRootPart")
+        if root then
+            local camLook = Camera.CFrame.LookVector
+            local forwardDir = Vector3.new(camLook.X, 0, camLook.Z).Unit
+            
+            -- Lực 250 chuẩn bài
+            local velocityVector = Vector3.new(0, UP_FORCE, 0) + (forwardDir * FORWARD_FORCE)
+            root.AssemblyLinearVelocity = velocityVector
+        end
+    end
+end
+
+-- KÍCH HOẠT
+JumpBtn.MouseButton1Click:Connect(DoJump)
+
+-- Thông báo chào mừng
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "MinhLuaStudio";
+    Text = "Script đã kích hoạt! Chúc bạn chơi vui.";
+    Duration = 5;
+})
