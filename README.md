@@ -1,48 +1,48 @@
 # 🚲 MinhLuaStudio Script - Bike Of Hell (V9)
 
-> **Phiên bản:** V9 (Final Fix)  
-> **Tác giả:** MinhLuaStudio  
-> **Game hỗ trợ:** Bike Of Hell & Các game Obby xe đạp khác  
-> **Trạng thái:** ✅ Hoạt động (Undetected)
+> **Version:** V9 (Final Fix) 
+> **Author:** MinhLuaStudio 
+> **Supported Games:** Bike Of Hell & Other Bike Obby games 
+> **Status:** ✅ Active (Undetected)
 
 ---
 
-## 📖 Giới thiệu
-Đây là Script hỗ trợ leo rank chuyên dụng cho tựa game **Bike Of Hell** trên Roblox. Script được thiết kế bởi **MinhLuaStudio** với thuật toán vật lý mới, giúp người chơi thực hiện các cú nhảy xa (Long Jump) và nhảy cao ngay cả khi game đã chặn nút Space (Nhảy) mặc định.
+## 📖 Introduction
+This is a specialized rank-climbing script for **Bike Of Hell** on Roblox. Designed by **MinhLuaStudio** with a new physics algorithm, it helps players perform Long Jumps and high jumps even when the game blocks the default Space (Jump) key.
 
-Đặc biệt, phiên bản V9 đã được cân chỉnh lực đẩy ở mức **250**, giúp những cú bay trở nên "đầm" hơn, dễ kiểm soát và không bị văng quá xa khỏi map.
+Specifically, Version V9 has been calibrated with a propulsion force of **250**, ensuring jumps are more stable, easier to control, and preventing you from flying too far out of the map.
 
-## ✨ Tính năng nổi bật (Features)
+## ✨ Features
 
-* **🎨 Giao diện RGB Chroma:** Menu được thiết kế hiện đại với viền và chữ đổi màu cầu vồng (Rainbow Loop) cực ngầu, mang đậm phong cách Gaming.
-* **🔓 Bypass System:** Khắc phục hoàn toàn lỗi không nhảy được khi ngồi trên xe. Sử dụng nút bấm ảo trên màn hình để kích hoạt lực đẩy.
-* **🚀 Balanced Long Jump (Lực 250):** * Tự động tính toán hướng Camera của người chơi.
-    * Đẩy nhân vật bay về phía trước với lực 250 (Vừa phải, chuẩn xác).
-    * Kết hợp lực nâng độ cao giúp vượt qua mọi chướng ngại vật.
-* **📱 Hỗ trợ đa nền tảng:** Hoạt động tốt trên cả PC và Mobile (Fluxus, Delta, Hydrogen, Arceus X...).
-* **🛡️ An toàn:** Code sạch, không gây crash game, có nút **X** để tắt/xóa GUI khi cần thiết.
+* **🎨 RGB Chroma Interface:** The menu is designed with a modern rainbow-looping border and text, giving it a professional gaming aesthetic.
+* **🔓 Bypass System:** Completely fixes the issue of being unable to jump while riding a bike. It uses a virtual on-screen button to activate the propulsion force.
+* **🚀 Balanced Long Jump (Force 250):** * Automatically calculates the player's Camera direction.
+    * Propels the character forward with a precise force of 250 (balanced and accurate).
+    * Combines upward lift to help clear all obstacles.
+* **📱 Multi-Platform Support:** Works perfectly on both PC and Mobile (Fluxus, Delta, Hydrogen, Arceus X...).
+* **🛡️ Safe:** Clean code, does not cause game crashes, and includes an **X** button to close or remove the GUI as needed.
 
-## 🛠️ Hướng dẫn sử dụng
+## 🛠️ How to Use
 
-1. **Bước 1:** Copy toàn bộ đoạn code Script V9.
-2. **Bước 2:** Vào game **Bike Of Hell**.
-3. **Bước 3:** Mở Executor của bạn lên và dán code vào -> Nhấn **Execute**.
-4. **Bước 4:** Menu **MinhLuaStudio** hiện ra.
-    * Bấm nút **Status: OFF** để chuyển sang **ON**.
-    * Xoay Camera về hướng bạn muốn bay tới.
-    * Bấm nút to **"BAY LÊN NÀO!"** trên màn hình để thực hiện cú nhảy.
+1. **Step 1:** Copy the entire V9 Script code.
+2. **Step 2:** Launch the **Bike Of Hell** game.
+3. **Step 3:** Open your Executor, paste the code, and click **Execute**.
+4. **Step 4:** The **MinhLuaStudio** menu will appear.
+    * Click the **Status: OFF** button to toggle it to **ON**.
+    * Aim your Camera in the direction you want to fly.
+    * Click the large **"JUMP NOW!"** button on the screen to perform the jump.
 
-## ⚙️ Cấu hình kỹ thuật (Dành cho Dev)
+## ⚙️ Technical Configuration (For Devs)
 
-* **Method:** `AssemblyLinearVelocity` (Ghi đè vận tốc vật lý).
+* **Method:** `AssemblyLinearVelocity` (Physical velocity override).
 * **Vector Calculation:** `LookVector * 250 (Forward) + Vector3(0, 110, 0) (Up)`.
 * **GUI Library:** Custom CoreGui/PlayerGui implementation.
 
 ---
 
-## ⚠️ Lưu ý
-* Script này giúp bạn chơi game dễ hơn, hãy sử dụng văn minh.
-* Nếu muốn bay xa hơn hoặc thấp hơn, bạn có thể chỉnh sửa thông số `FORWARD_FORCE` trong code.
+## ⚠️ Notes
+* This script is intended to make your gameplay easier; please use it responsibly.
+* If you want to jump further or lower, you can modify the `FORWARD_FORCE` parameter in the code.
 
 ---
 
